@@ -1,7 +1,7 @@
-import { drizzle } from "drizzle-orm/libsql";
+import Database from "better-sqlite3";
+import path from "node:path";
+import { app } from "electron";
 
-export const db = drizzle({
-  connection: {
-    url: "file: ./career-compass.db",
-  },
-});
+const db = new Database(path.join(app.getPath("userData"), "career-compass.db"));
+
+export default db;

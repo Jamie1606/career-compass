@@ -33,6 +33,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
 import RootLayout from "./pages/layout";
 import DashboardPage from "./pages/dashboard/page";
+import URL from "./constant/url";
+import JobStatusPage from "./pages/job-status/page";
 
 const root = document.getElementById("root");
 
@@ -43,12 +45,12 @@ ReactDOM.createRoot(root).render(
       <Routes>
         <Route element={<RootLayout />}>
           <Route index element={<DashboardPage />} />
+          <Route path={URL.JOB_STATUS} element={<JobStatusPage />} />
           {/* <Route path={URL.JOB} element={<JobPage />} />
           <Route path={URL.PEOPLE} element={<PeoplePage />} />
           <Route path={URL.TASK} element={<TaskPage />} />
           <Route path={URL.CALENDAR} element={<CalendarPage />} />
           <Route path={URL.ARCHIVE} element={<ArchivePage />} />
-          <Route path={URL.JOB_STATUS} element={<JobStatusPage />} />
           <Route path={URL.OFFICE_TYPE} element={<OfficeTypePage />} />
           <Route path={URL.EXTENSION} element={<ExtensionPage />} />
           <Route path={URL.SETTING} element={<SettingPage />} />

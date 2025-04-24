@@ -20,13 +20,13 @@ const RootLayout = () => {
         <div className="flex flex-col min-h-0 overflow-y-auto p-2 gap-y-2">
           <SidebarItem url={URL.DASHBOARD} label="Dashboard" icon={DashboardIcon} />
           <SidebarItem url={URL.JOB} label="Jobs" icon={WorkIcon} />
-          <SidebarItem url={URL.PEOPLE} label="People" icon={PersonIcon} />
+          {/* <SidebarItem url={URL.PEOPLE} label="People" icon={PersonIcon} />
           <SidebarItem url={URL.TASK} label="Tasks" icon={TaskIcon} />
           <SidebarItem url={URL.ARCHIVE} label="Archive" icon={ArchiveIcon} />
-          <SidebarItem url={URL.CALENDAR} label="Calendar" icon={CalendarIcon} />
+          <SidebarItem url={URL.CALENDAR} label="Calendar" icon={CalendarIcon} /> */}
           <SidebarItem url={URL.JOB_STATUS} label="Job Status" icon={StepIcon} />
           <SidebarItem url={URL.OFFICE_TYPE} label="Office Type" icon={OfficeTypeIcon} />
-          <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} />
+          {/* <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} /> */}
         </div>
         <div className="mt-auto flex flex-col p-2 gap-y-2">
           <SidebarItem url={URL.SETTING} label="Setting" icon={SettingIcon} />
