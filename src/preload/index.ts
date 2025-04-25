@@ -2,3 +2,4 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 import "./database/status";
+import "./database/office-type";

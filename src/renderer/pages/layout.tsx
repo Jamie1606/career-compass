@@ -29,7 +29,7 @@ const RootLayout = () => {
           {/* <SidebarItem url={URL.EXTENSION} label="Extension" icon={ExtensionIcon} /> */}
         </div>
         <div className="mt-auto flex flex-col p-2 gap-y-2">
-          <SidebarItem url={URL.SETTING} label="Setting" icon={SettingIcon} />
+          {/* <SidebarItem url={URL.SETTING} label="Setting" icon={SettingIcon} /> */}
           <SidebarItem url={URL.ABOUT} label="About" icon={InfoIcon} />
         </div>
       </div>

@@ -16,13 +16,13 @@ export default function DataTable<T extends { key: React.Key }>({ columns, rows,
     <Table aria-label="Data table">
       <TableHeader columns={columns}>
         {(column) => (
-          <TableColumn className="text-center text-[15px] text-black font-semibold" key={String(column.key)}>
+          <TableColumn className="text-center text-[15px] text-black font-semibold bg-[#1d4ed8]/20" key={String(column.key)}>
             {column.label}
           </TableColumn>
         )}
       </TableHeader>
       <TableBody emptyContent={!loading && <span className="text-[15px] text-red-500 font-medium">No data</span>} items={rows}>
-        {(item) => <TableRow className="hover:bg-gray-100" key={item.key}>{(columnKey) => <TableCell className="text-center">{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
+        {(item) => <TableRow className="hover:bg-[#1d4ed8]/5" key={item.key}>{(columnKey) => <TableCell className="text-center">{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
       </TableBody>
     </Table>
   );

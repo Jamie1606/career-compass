@@ -11,9 +11,10 @@ interface EditModalProps {
   resetForm: () => void;
   submitForm: () => Promise<boolean>;
   checkDataExist: () => Promise<boolean>;
+  onClose: () => void;
 }
 
-export default function EditModal({ isOpen, title, loading = false, children, onOpenChange, checkDataExist, resetForm, setRefresh, submitForm }: EditModalProps) {
+export default function EditModal({ isOpen, title, loading = false, children, onOpenChange, checkDataExist, resetForm, setRefresh, submitForm, onClose }: EditModalProps) {
   // check whether the data exists in database
   const handleCheckData = async () => {
     const result = await checkDataExist();
@@ -29,27 +30,30 @@ export default function EditModal({ isOpen, title, loading = false, children, on
     }
   }, [isOpen]);
 
+  const handleSubmit = async () => {
+    const success = await submitForm();
+    if (success) {
+      onClose();
+      setRefresh(true);
+    }
+  };
+
   return (
     <Modal scrollBehavior="inside" size="2xl" isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent>
-        {(onClose) => (
+      <ModalContent
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSubmit();
+          }
+        }}
+      >
+        {() => (
           <>
             <ModalHeader>{title}</ModalHeader>
             <ModalBody>{children}</ModalBody>
             <ModalFooter>
-              <Button
-                isLoading={loading}
-                disabled={loading}
-                className="text-[15px]"
-                color="warning"
-                onPress={async () => {
-                  const success = await submitForm();
-                  if (success) {
-                    onClose();
-                    setRefresh(true);
-                  }
-                }}
-              >
+              <Button isLoading={loading} disabled={loading} className="text-[15px]" color="warning" onPress={handleSubmit}>
                 Edit
               </Button>
             </ModalFooter>

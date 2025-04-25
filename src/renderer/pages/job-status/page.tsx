@@ -1,4 +1,4 @@
-import { Chip, Input, Pagination } from "@heroui/react";
+import { Chip, Input } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { getContrastTextColor } from "@/util/color";
 import { Status } from "src/main/database/db-types";
@@ -8,6 +8,7 @@ import { columns, StatusData } from "./columns";
 import JobStatusForm from "./job-status-form";
 import JobStatusEditForm from "./job-status-edit-form";
 import DeleteModal from "@/components/delete-modal";
+import CustomPagination from "@/components/custom-pagination";
 
 const JobStatusPage = () => {
   const [data, setData] = useState<StatusData[]>([]);
@@ -34,7 +35,7 @@ const JobStatusPage = () => {
     return data.map((item, index) => {
       return {
         key: index,
-        no: index + 1 + ".",
+        no: (page - 1) * limit + index + 1 + ".",
         name: item.name,
         badge: (
           <Chip size="sm" className="font-semibold capitalize px-2 py-1" style={{ backgroundColor: "#" + item.color, color: getContrastTextColor(item.color) }}>
@@ -55,7 +56,6 @@ const JobStatusPage = () => {
     const offset = (page - 1) * 10;
     const res = await window.StatusAPI.getList(search.trim(), limit, offset);
     if (res.success === true) {
-      console.log(res.data);
       setData(formatData(res.data));
     } else {
       showToast("Message", res.error, "error");
@@ -65,6 +65,9 @@ const JobStatusPage = () => {
   const getCount = async () => {
     const res = await window.StatusAPI.getCount(search.trim());
     if (res.success === true) {
+      if (page > Math.ceil(res.data / limit)) {
+        setPage(Math.ceil(res.data / limit));
+      }
       setTotal(res.data);
     } else {
       showToast("Message", res.error, "error");
@@ -129,7 +132,7 @@ const JobStatusPage = () => {
               </label>
             )}
           </div>
-          {total > 0 && <Pagination showShadow page={page} total={Math.ceil(total / limit)} onChange={(page) => setPage(page)} className="justify-end" />}
+          {total > 0 && <CustomPagination page={page} total={total} limit={limit} onChange={(page) => setPage(page)} />}
         </div>
       </div>
     </div>

@@ -37,6 +37,7 @@ import URL from "./constant/url";
 import JobStatusPage from "./pages/job-status/page";
 import OfficeTypePage from "./pages/office-type/page";
 import AboutPage from "./pages/about/page";
+import JobPage from "./pages/job/page";
 
 const root = document.getElementById("root");
 
@@ -49,8 +50,8 @@ ReactDOM.createRoot(root).render(
           <Route index element={<DashboardPage />} />
           <Route path={URL.JOB_STATUS} element={<JobStatusPage />} />
           <Route path={URL.OFFICE_TYPE} element={<OfficeTypePage />} />
-          {/* <Route path={URL.JOB} element={<JobPage />} />
-          <Route path={URL.PEOPLE} element={<PeoplePage />} />
+          <Route path={URL.JOB} element={<JobPage />} />
+          {/*<Route path={URL.PEOPLE} element={<PeoplePage />} />
           <Route path={URL.TASK} element={<TaskPage />} />
           <Route path={URL.CALENDAR} element={<CalendarPage />} />
           <Route path={URL.ARCHIVE} element={<ArchivePage />} />

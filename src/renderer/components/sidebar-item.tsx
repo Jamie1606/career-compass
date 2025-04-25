@@ -4,10 +4,10 @@ import { IconProps } from "@/types/icon-definition";
 import { Link, useLocation } from "react-router";
 
 interface SidebarItemProps {
-  url: URLLink;
   label: string;
-  icon: React.ElementType<IconProps>;
   noti?: number;
+  url: URLLink;
+  icon: React.ElementType<IconProps>;
 }
 
 export default function SidebarItem({ url, label, icon: Icon, noti }: SidebarItemProps) {

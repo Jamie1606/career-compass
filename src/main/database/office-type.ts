@@ -83,7 +83,7 @@ export const getOfficeTypeById = (officeTYpeID: number) => {
 };
 
 export const getOfficeTypeCount = (search: string) => {
-  let query = "SELECT COUNT(*) FROM office_type";
+  let query = "SELECT COUNT(*) as count FROM office_type";
   let params: any[] = [];
 
   if (search) {

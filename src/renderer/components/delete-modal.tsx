@@ -18,13 +18,16 @@ export default function DeleteModal({ title, message, onSubmit, setRefresh }: De
       <Button size="sm" color="danger" isIconOnly onPress={onOpen}>
         <DeleteIcon width={16} height={16} fill="#ffffff" />
       </Button>
-      <Modal scrollBehavior="inside" size="2xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal scrollBehavior="inside" size="xl" isDismissable={false} isKeyboardDismissDisabled={true} hideCloseButton={true} isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader>{title}</ModalHeader>
               <ModalBody>{message}</ModalBody>
               <ModalFooter>
+                <Button color="default" variant="flat" onPress={onClose}>
+                  Cancel
+                </Button>
                 <Button
                   isLoading={loading}
                   disabled={loading}
