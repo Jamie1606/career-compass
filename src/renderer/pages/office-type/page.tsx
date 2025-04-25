@@ -59,7 +59,7 @@ const OfficeTypePage = () => {
   const getCount = async () => {
     const res = await window.OfficeTypeAPI.getCount(search.trim());
     if (res.success === true) {
-      if (page > Math.ceil(res.data / limit)) {
+      if (page > Math.ceil(res.data / limit) && page !== 1) {
         setPage(Math.ceil(res.data / limit));
       }
       setTotal(res.data);
