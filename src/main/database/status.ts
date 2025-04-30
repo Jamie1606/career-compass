@@ -46,18 +46,14 @@ export const updateStatus = (name: string, color: string, statusID: number) => {
 };
 
 export const deleteStatus = (statusID: number) => {
-  try {
-    const stmt = db.prepare("DELETE FROM status WHERE status_id = ?");
-    const result = stmt.run(statusID);
+  const stmt = db.prepare("DELETE FROM status WHERE status_id = ?");
+  const result = stmt.run(statusID);
 
-    if (!result.changes) {
-      throw new Error("Failed to delete status");
-    }
-
-    return result.changes;
-  } catch (error) {
-    throw error;
+  if (!result.changes) {
+    throw new Error("Failed to delete status");
   }
+
+  return result.changes;
 };
 
 export const getAllStatus = () => {
@@ -67,19 +63,15 @@ export const getAllStatus = () => {
   return result as Status[];
 };
 
-export const getStatusById = (statusID: number) => {
-  try {
-    const stmt = db.prepare("SELECT * FROM status WHERE status_id = ?");
-    const result = stmt.get(statusID);
+export const getStatusById = (statusID: number | bigint) => {
+  const stmt = db.prepare("SELECT * FROM status WHERE status_id = ?");
+  const result = stmt.get(statusID);
 
-    if (!result) {
-      throw new Error("No status found");
-    }
-
-    return result as Status;
-  } catch (error) {
-    throw error;
+  if (!result) {
+    throw new Error("No status found");
   }
+
+  return result as Status;
 };
 
 export const getStatusCount = (search: string) => {

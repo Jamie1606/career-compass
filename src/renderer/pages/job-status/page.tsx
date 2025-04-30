@@ -19,7 +19,7 @@ const JobStatusPage = () => {
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const deleteStatus = async (statusID: number) => {
+  const deleteStatus = async (statusID: number | bigint) => {
     const res = await window.StatusAPI.delete(statusID);
 
     if (res.success === true) {

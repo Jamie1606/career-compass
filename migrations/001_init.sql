@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS people (
 -- Job table
 CREATE TABLE IF NOT EXISTS job (
   job_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
   location TEXT,
   job_description TEXT,
   link TEXT,

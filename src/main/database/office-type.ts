@@ -24,7 +24,7 @@ export const createOfficeType = (officeType: CreateOfficeType) => {
   }
 };
 
-export const updateOfficeType = (name: string,  officeTypeID: number) => {
+export const updateOfficeType = (name: string, officeTypeID: number) => {
   try {
     const parsed = newOfficeTypeSchema.parse({ name });
     const stmt = db.prepare("UPDATE office_type SET name = ? WHERE office_type_id = ?");
@@ -46,18 +46,14 @@ export const updateOfficeType = (name: string,  officeTypeID: number) => {
 };
 
 export const deleteOfficeType = (officeTypeID: number) => {
-  try {
-    const stmt = db.prepare("DELETE FROM office_type WHERE office_type_id = ?");
-    const result = stmt.run(officeTypeID);
+  const stmt = db.prepare("DELETE FROM office_type WHERE office_type_id = ?");
+  const result = stmt.run(officeTypeID);
 
-    if (!result.changes) {
-      throw new Error("Failed to delete office type");
-    }
-
-    return result.changes;
-  } catch (error) {
-    throw error;
+  if (!result.changes) {
+    throw new Error("Failed to delete office type");
   }
+
+  return result.changes;
 };
 
 export const getAllOfficeType = () => {
@@ -67,19 +63,15 @@ export const getAllOfficeType = () => {
   return result as OfficeType[];
 };
 
-export const getOfficeTypeById = (officeTYpeID: number) => {
-  try {
-    const stmt = db.prepare("SELECT * FROM office_type WHERE office_type_id = ?");
-    const result = stmt.get(officeTYpeID);
+export const getOfficeTypeById = (officeTypeID: number | bigint) => {
+  const stmt = db.prepare("SELECT * FROM office_type WHERE office_type_id = ?");
+  const result = stmt.get(officeTypeID);
 
-    if (!result) {
-      throw new Error("No office type found");
-    }
-
-    return result as OfficeType;
-  } catch (error) {
-    throw error;
+  if (!result) {
+    throw new Error("No office type found");
   }
+
+  return result as OfficeType;
 };
 
 export const getOfficeTypeCount = (search: string) => {

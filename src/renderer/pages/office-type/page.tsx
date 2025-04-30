@@ -18,7 +18,7 @@ const OfficeTypePage = () => {
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const deleteOfficeType = async (officeTypeID: number) => {
+  const deleteOfficeType = async (officeTypeID: number | bigint) => {
     const res = await window.OfficeTypeAPI.delete(officeTypeID);
 
     if (res.success === true) {

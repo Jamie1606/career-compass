@@ -6,7 +6,7 @@ import { Button, Input, useDisclosure } from "@heroui/react";
 import { useState } from "react";
 
 interface OfficeTypeEditFormProps {
-  editID: number;
+  editID: number | bigint;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
