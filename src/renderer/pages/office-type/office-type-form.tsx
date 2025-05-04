@@ -57,7 +57,7 @@ export default function OfficeTypeForm({ setRefresh }: OfficeTypeFormProps) {
 
   return (
     <>
-      <AddIconButton onOpen={onOpen} />
+      <AddIconButton onOpen={onOpen} hoverTitle="Add New Office Type" />
       <AddModal onClose={onClose} submitForm={submitForm} loading={loading} isOpen={isOpen} onOpenChange={onOpenChange} title="Add New Office Type" setRefresh={setRefresh} resetForm={resetForm}>
         <div className="flex flex-col w-full text-black px-3 pb-2">
           <label htmlFor="name" className="text-[15px] font-medium">

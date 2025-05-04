@@ -1,4 +1,6 @@
 export function getContrastTextColor(bgColor: string): string {
+  if (!bgColor) return "black";
+
   // Remove "#" if present
   const color = bgColor.replace("#", "");
 

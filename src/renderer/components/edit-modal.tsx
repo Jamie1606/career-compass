@@ -5,6 +5,7 @@ interface EditModalProps {
   title: string;
   isOpen: boolean;
   loading?: boolean;
+  buttonText?: string;
   children: React.ReactNode;
   onOpenChange: (isOpen: boolean) => void;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +15,7 @@ interface EditModalProps {
   onClose: () => void;
 }
 
-export default function EditModal({ isOpen, title, loading = false, children, onOpenChange, checkDataExist, resetForm, setRefresh, submitForm, onClose }: EditModalProps) {
+export default function EditModal({ isOpen, title, loading = false, children, buttonText = "Edit", onOpenChange, checkDataExist, resetForm, setRefresh, submitForm, onClose }: EditModalProps) {
   // check whether the data exists in database
   const handleCheckData = async () => {
     const result = await checkDataExist();
@@ -54,7 +55,7 @@ export default function EditModal({ isOpen, title, loading = false, children, on
             <ModalBody>{children}</ModalBody>
             <ModalFooter>
               <Button isLoading={loading} disabled={loading} className="text-[15px]" color="warning" onPress={handleSubmit}>
-                Edit
+                {buttonText}
               </Button>
             </ModalFooter>
           </>

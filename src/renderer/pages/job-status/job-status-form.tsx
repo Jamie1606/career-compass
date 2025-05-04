@@ -60,7 +60,7 @@ export default function JobStatusForm({ setRefresh }: JobStatusFormProps) {
 
   return (
     <>
-      <AddIconButton onOpen={onOpen} />
+      <AddIconButton onOpen={onOpen} hoverTitle="Add New Job Status" />
       <AddModal onClose={onClose} submitForm={submitForm} loading={loading} isOpen={isOpen} onOpenChange={onOpenChange} title="Add New Job Status" setRefresh={setRefresh} resetForm={resetForm}>
         <div className="flex flex-col w-full text-black px-3 pb-2">
           <label htmlFor="name" className="text-[15px] font-medium">

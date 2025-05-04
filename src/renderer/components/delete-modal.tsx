@@ -4,18 +4,19 @@ import { useState } from "react";
 
 interface DeleteModalProps {
   title: string;
-  message: string;
+  message: string | React.ReactNode;
+  hoverTitle?: string;
   onSubmit: () => Promise<boolean>;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function DeleteModal({ title, message, onSubmit, setRefresh }: DeleteModalProps) {
+export default function DeleteModal({ title, message, hoverTitle, onSubmit, setRefresh }: DeleteModalProps) {
   const { isOpen, onOpenChange, onOpen } = useDisclosure();
   const [loading, setLoading] = useState(false);
 
   return (
     <>
-      <Button size="sm" color="danger" isIconOnly onPress={onOpen}>
+      <Button size="sm" color="danger" isIconOnly onPress={onOpen} title={hoverTitle}>
         <DeleteIcon width={16} height={16} fill="#ffffff" />
       </Button>
       <Modal scrollBehavior="inside" size="xl" isDismissable={false} isKeyboardDismissDisabled={true} hideCloseButton={true} isOpen={isOpen} onOpenChange={onOpenChange}>

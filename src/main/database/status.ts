@@ -3,7 +3,7 @@ import { newStatusSchema } from "../zod-schema/status";
 import db from "./db";
 import { CreateStatus, Status } from "./db-types";
 
-export const createStatus = (status: CreateStatus) => {
+export const createStatus = async (status: CreateStatus) => {
   try {
     const parsed = newStatusSchema.parse(status);
     const stmt = db.prepare("INSERT INTO status (name, color) VALUES (?, ?)");
@@ -24,7 +24,7 @@ export const createStatus = (status: CreateStatus) => {
   }
 };
 
-export const updateStatus = (name: string, color: string, statusID: number) => {
+export const updateStatus = async (name: string, color: string, statusID: number) => {
   try {
     const parsed = newStatusSchema.parse({ name, color });
     const stmt = db.prepare("UPDATE status SET name = ?, color = ? WHERE status_id = ?");
@@ -45,7 +45,7 @@ export const updateStatus = (name: string, color: string, statusID: number) => {
   }
 };
 
-export const deleteStatus = (statusID: number) => {
+export const deleteStatus = async (statusID: number) => {
   const stmt = db.prepare("DELETE FROM status WHERE status_id = ?");
   const result = stmt.run(statusID);
 
@@ -56,25 +56,21 @@ export const deleteStatus = (statusID: number) => {
   return result.changes;
 };
 
-export const getAllStatus = () => {
+export const getAllStatus = async () => {
   const stmt = db.prepare("SELECT * FROM status");
   const result = stmt.all();
 
   return result as Status[];
 };
 
-export const getStatusById = (statusID: number | bigint) => {
+export const getStatusById = async (statusID: number | bigint) => {
   const stmt = db.prepare("SELECT * FROM status WHERE status_id = ?");
   const result = stmt.get(statusID);
-
-  if (!result) {
-    throw new Error("No status found");
-  }
 
   return result as Status;
 };
 
-export const getStatusCount = (search: string) => {
+export const getStatusCount = async (search: string) => {
   let query = "SELECT COUNT(*) as count FROM status";
   let params: any[] = [];
 
@@ -89,7 +85,7 @@ export const getStatusCount = (search: string) => {
   return result.count;
 };
 
-export const getStatusList = (search: string, limit: number, offset: number) => {
+export const getStatusList = async (search: string, limit: number, offset: number) => {
   let query = "SELECT * FROM status";
   let params: any[] = [];
 

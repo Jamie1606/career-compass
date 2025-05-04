@@ -1,4 +1,4 @@
-import { CreateOfficeType, CreateStatus, Employer, Job, OfficeType, Status } from "src/main/database/db-types";
+import { CreateJobStatusHistory, CreateOfficeType, CreateStatus, Employer, JobDetail, JobList, OfficeType, Status } from "src/main/database/db-types";
 
 export type APISuccess<T> = {
   success: true;
@@ -38,8 +38,14 @@ export interface IEmployerAPI {
 
 export interface IJobAPI {
   create: (job: CreateJob) => Promise<APIResponse<number | bigint>>;
-  getList: (search: string, limit: number, offset: number) => Promise<APIResponse<Job[]>>;
+  delete: (jobID: number | bigint) => Promise<APIResponse<number>>;
+  getList: (search: string, limit: number, offset: number) => Promise<APIResponse<JobList[]>>;
   getCount: (search: string) => Promise<APIResponse<number>>;
+  getById: (jobID: number | bigint) => Promise<APIResponse<JobDetail>>;
+}
+
+export interface IJobStatusHistoryAPI {
+  create: (jobStatusHistory: CreateJobStatusHistory) => Promise<APIResponse<number | bigint>>;
 }
 
 declare global {
@@ -48,6 +54,7 @@ declare global {
     OfficeTypeAPI: IOfficeTypeAPI;
     EmployerAPI: IEmployerAPI;
     JobAPI: IJobAPI;
+    JobStatusHistoryAPI: IJobStatusHistoryAPI;
   }
 }
 

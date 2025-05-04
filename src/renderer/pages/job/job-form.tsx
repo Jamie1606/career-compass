@@ -194,7 +194,7 @@ export default function JobForm({ setRefresh }: JobFormProps) {
 
   return (
     <>
-      <AddIconButton onOpen={onOpen} />
+      <AddIconButton onOpen={onOpen} hoverTitle="Add New Job Application" />
       <AddModal onClose={onClose} submitForm={submitForm} loading={loading} isOpen={isOpen} onOpenChange={onOpenChange} title="Add New Job Application" setRefresh={setRefresh} resetForm={resetForm}>
         <div className="flex flex-col w-full text-black px-3 pb-2">
           <label htmlFor="title" className="text-[15px] font-medium">
@@ -291,7 +291,7 @@ export default function JobForm({ setRefresh }: JobFormProps) {
           <label htmlFor="jobDescription" className="text-[15px] font-medium mt-5">
             Job Description
           </label>
-          <Textarea aria-label="Job Description" disabled={loading} id="jobDescription" className="mt-2" value={jobDescription} onValueChange={(value) => setJobDescription(value)} isClearable onClear={() => setJobDescription("")} minRows={3} maxRows={12} />
+          <Textarea aria-label="Job Description" disabled={loading} id="jobDescription" className="mt-2" value={jobDescription} onValueChange={(value) => setJobDescription(value)} minRows={3} maxRows={12} />
 
           <label htmlFor="jobLink" className="text-[15px] font-medium mt-5">
             Link to Job Posting

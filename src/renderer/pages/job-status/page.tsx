@@ -1,14 +1,15 @@
 import { Chip, Input } from "@heroui/react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { getContrastTextColor } from "@/util/color";
 import { Status } from "src/main/database/db-types";
 import { showToast } from "@/util/toast";
 import DataTable from "@/components/data-table";
 import { columns, StatusData } from "./columns";
-import JobStatusForm from "./job-status-form";
-import JobStatusEditForm from "./job-status-edit-form";
-import DeleteModal from "@/components/delete-modal";
 import CustomPagination from "@/components/custom-pagination";
+
+const JobStatusForm = lazy(() => import("./job-status-form"));
+const JobStatusEditForm = lazy(() => import("./job-status-edit-form"));
+const DeleteModal = lazy(() => import("@/components/delete-modal"));
 
 const JobStatusPage = () => {
   const [data, setData] = useState<StatusData[]>([]);
@@ -38,14 +39,26 @@ const JobStatusPage = () => {
         no: (page - 1) * limit + index + 1 + ".",
         name: item.name,
         badge: (
-          <Chip size="sm" className="font-semibold capitalize px-2 py-1" style={{ backgroundColor: "#" + item.color, color: getContrastTextColor(item.color) }}>
+          <Chip size="sm" className="font-semibold capitalize px-2 py-1 select-none" style={{ backgroundColor: "#" + item.color, color: getContrastTextColor(item.color) }}>
             {item.name}
           </Chip>
         ),
         action: (
           <div className="flex items-center gap-x-2 justify-center">
-            <JobStatusEditForm setRefresh={setRefresh} editID={item.status_id} />
-            <DeleteModal title="Delete Job Status" message={`Are you sure you want to delete this job status "${item.name}"?`} onSubmit={() => deleteStatus(item.status_id)} setRefresh={setRefresh} />
+            <Suspense fallback="">
+              <JobStatusEditForm setRefresh={setRefresh} editID={item.status_id} />
+              <DeleteModal
+                title="Delete Job Status"
+                hoverTitle="Delete Job Status"
+                message={
+                  <span>
+                    Are you sure you want to delete this job status <span className="font-semibold">"{item.name}"</span>?
+                  </span>
+                }
+                onSubmit={() => deleteStatus(item.status_id)}
+                setRefresh={setRefresh}
+              />
+            </Suspense>
           </div>
         ),
       };
@@ -116,7 +129,9 @@ const JobStatusPage = () => {
           </div>
 
           {/* add new job status */}
-          <JobStatusForm setRefresh={setRefresh} />
+          <Suspense fallback="">
+            <JobStatusForm setRefresh={setRefresh} />
+          </Suspense>
         </div>
 
         {/* job contents */}

@@ -6,6 +6,7 @@ import "./ipc/status-ipc";
 import "./ipc/office-type-ipc";
 import "./ipc/employer-ipc";
 import "./ipc/job-ipc";
+import "./ipc/job-status-history-ipc";
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();

@@ -2,3 +2,30 @@
 @plugin './hero.ts';
 @source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
 @custom-variant dark (&:is(.dark *));
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 5px; /* Added height for horizontal scrollbar */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f8fafc;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 2px; /* Added rounded corners for better appearance */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+  
+  /* Corner where scrollbars meet */
+  ::-webkit-scrollbar-corner {
+    background: #f8fafc;
+  }

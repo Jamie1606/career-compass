@@ -83,3 +83,21 @@ export type CreatePeople = Omit<People, "people_id">;
 export type CreateJob = Omit<Job, "job_id" | "employer_id"> & { employer_name: string; status_id: number | bigint; note?: string };
 export type CreateJobStatusHistory = Omit<JobStatusHistory, "history_id">;
 export type CreateTask = Omit<Task, "task_id">;
+
+export type JobStatusHistoryDetail = JobStatusHistory & {
+  status_name: string;
+  status_color: string;
+};
+
+export type JobList = Omit<Job, "employer_id" | "office_type_id"> & {
+  employer_name: string;
+  status_name: string;
+  status_color: string;
+  office_type_name: string;
+};
+
+export type JobDetail = Omit<Job, "employer_id" | "office_type_id"> & {
+  employer_name: string;
+  office_type_name: string;
+  status_history: JobStatusHistoryDetail[];
+};

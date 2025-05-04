@@ -1,11 +1,15 @@
 import CustomPagination from "@/components/custom-pagination";
 import DataTable from "@/components/data-table";
-import { Input } from "@heroui/react";
-import { useEffect, useState } from "react";
+import { Chip, Input } from "@heroui/react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { columns, JobData } from "./columns";
-import JobForm from "./job-form";
 import { showToast } from "@/util/toast";
-import { Job } from "src/main/database/db-types";
+import { JobList } from "src/main/database/db-types";
+import { getContrastTextColor } from "@/util/color";
+
+const JobStatusUpdateForm = lazy(() => import("./job-status-update-form"));
+const DeleteModal = lazy(() => import("@/components/delete-modal"));
+const JobForm = lazy(() => import("./job-form"));
 
 const JobPage = () => {
   const [data, setData] = useState<JobData[]>([]);
@@ -16,32 +20,48 @@ const JobPage = () => {
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // const deleteStatus = async (statusID: number | bigint) => {
-  //   const res = await window.StatusAPI.delete(statusID);
+  const deleteJob = async (jobID: number | bigint) => {
+    const res = await window.JobAPI.delete(jobID);
 
-  //   if (res.success === true) {
-  //     showToast("Message", "Job status deleted successfully", "success");
-  //     return true;
-  //   } else {
-  //     showToast("Message", res.error, "error");
-  //     return false;
-  //   }
-  // };
+    if (res.success === true) {
+      showToast("Message", "Job application deleted successfully", "success");
+      return true;
+    } else {
+      showToast("Message", res.error, "error");
+      return false;
+    }
+  };
 
-  const formatData = (data: Job[]): JobData[] => {
+  const formatData = (data: JobList[]): JobData[] => {
     return data.map((item, index) => {
       return {
         key: index,
         no: (page - 1) * limit + index + 1 + ".",
         title: item.title,
-        employer: item.employer_id + "",
-        office_type: "test",
+        employer: item.employer_name,
+        office_type: item.office_type_name,
         location: item.location ? item.location : "-",
-        status: <></>,
+        status: (
+          <Chip size="sm" className="font-semibold capitalize px-2 py-1 select-none" style={{ backgroundColor: "#" + item.status_color, color: getContrastTextColor(item.status_color) }}>
+            {item.status_name}
+          </Chip>
+        ),
         action: (
           <div className="flex items-center gap-x-2 justify-center">
-            {/* <JobStatusEditForm setRefresh={setRefresh} editID={item.status_id} />
-            <DeleteModal title="Delete Job Status" message={`Are you sure you want to delete this job status "${item.name}"?`} onSubmit={() => deleteStatus(item.status_id)} setRefresh={setRefresh} /> */}
+            <Suspense fallback={<></>}>
+              <JobStatusUpdateForm editID={item.job_id} setRefresh={setRefresh} />
+              <DeleteModal
+                title="Delete Job"
+                hoverTitle="Delete Job"
+                message={
+                  <span>
+                    Are you sure you want to delete this job application <span className="font-semibold">"{item.title}"</span>?
+                  </span>
+                }
+                onSubmit={() => deleteJob(item.job_id)}
+                setRefresh={setRefresh}
+              />
+            </Suspense>
           </div>
         ),
       };
@@ -112,7 +132,9 @@ const JobPage = () => {
           </div>
 
           {/* add new job application */}
-          <JobForm setRefresh={setRefresh} />
+          <Suspense fallback={<></>}>
+            <JobForm setRefresh={setRefresh} />
+          </Suspense>
         </div>
 
         {/* job application contents */}

@@ -1,4 +1,5 @@
 import CustomInput from "@/components/custom-input";
+import EditIconButton from "@/components/edit-icon-button";
 import EditModal from "@/components/edit-modal";
 import EditIcon from "@/icons/edit-icon";
 import { showToast } from "@/util/toast";
@@ -67,9 +68,7 @@ export default function OfficeTypeEditForm({ editID, setRefresh }: OfficeTypeEdi
 
   return (
     <>
-      <Button size="sm" color="warning" isIconOnly onPress={onOpen}>
-        <EditIcon width={16} height={16} fill="#ffffff" />
-      </Button>
+      <EditIconButton onOpen={onOpen} hoverTitle="Edit Office Type" />
       <EditModal onClose={onClose} checkDataExist={checkDataExist} submitForm={submitForm} loading={loading} isOpen={isOpen} onOpenChange={onOpenChange} title="Edit Office Type" setRefresh={setRefresh} resetForm={resetForm}>
         <div className="flex flex-col w-full text-black px-3 pb-2">
           <label htmlFor="name" className="text-[15px] font-medium">

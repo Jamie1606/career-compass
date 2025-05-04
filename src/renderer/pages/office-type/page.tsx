@@ -1,13 +1,14 @@
 import { Input } from "@heroui/react";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { OfficeType } from "src/main/database/db-types";
 import { showToast } from "@/util/toast";
 import { columns, OfficeTypeData } from "./columns";
 import DataTable from "@/components/data-table";
-import DeleteModal from "@/components/delete-modal";
-import OfficeTypeForm from "./office-type-form";
-import OfficeTypeEditForm from "./office-type-edit-form";
 import CustomPagination from "@/components/custom-pagination";
+
+const OfficeTypeForm = lazy(() => import("./office-type-form"));
+const OfficeTypeEditForm = lazy(() => import("./office-type-edit-form"));
+const DeleteModal = lazy(() => import("@/components/delete-modal"));
 
 const OfficeTypePage = () => {
   const [data, setData] = useState<OfficeTypeData[]>([]);
@@ -38,8 +39,20 @@ const OfficeTypePage = () => {
         name: item.name,
         action: (
           <div className="flex items-center gap-x-2 justify-center">
-            <OfficeTypeEditForm setRefresh={setRefresh} editID={item.office_type_id} />
-            <DeleteModal title="Delete Office Type" message={`Are you sure you want to delete this office type "${item.name}"?`} onSubmit={() => deleteOfficeType(item.office_type_id)} setRefresh={setRefresh} />
+            <Suspense fallback="">
+              <OfficeTypeEditForm setRefresh={setRefresh} editID={item.office_type_id} />
+              <DeleteModal
+                title="Delete Office Type"
+                hoverTitle="Delete Office Type"
+                message={
+                  <span>
+                    Are you sure you want to delete this office type <span className="font-semibold">"{item.name}"</span>?
+                  </span>
+                }
+                onSubmit={() => deleteOfficeType(item.office_type_id)}
+                setRefresh={setRefresh}
+              />
+            </Suspense>
           </div>
         ),
       };
@@ -110,7 +123,9 @@ const OfficeTypePage = () => {
           </div>
 
           {/* add new office type */}
-          <OfficeTypeForm setRefresh={setRefresh} />
+          <Suspense fallback="">
+            <OfficeTypeForm setRefresh={setRefresh} />
+          </Suspense>
         </div>
 
         {/* office type contents */}

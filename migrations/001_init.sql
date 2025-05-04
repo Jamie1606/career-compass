@@ -42,6 +42,20 @@ CREATE TABLE IF NOT EXISTS people (
   FOREIGN KEY (contact_type_id) REFERENCES contact_type(contact_type_id)
 );
 
+-- Resume table
+CREATE TABLE IF NOT EXISTS resume (
+  resume_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  resume BLOB,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Cover letter table
+CREATE TABLE IF NOT EXISTS cover_letter (
+  cover_letter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  cover_letter BLOB,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Job table
 CREATE TABLE IF NOT EXISTS job (
   job_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,15 +64,17 @@ CREATE TABLE IF NOT EXISTS job (
   job_description TEXT,
   link TEXT,
   note TEXT,
-  resume BLOB,
-  cover_letter BLOB,
   created_at TEXT DEFAULT CURRENT_TIMESTAMP,
   referrer_id INTEGER,
   office_type_id INTEGER,
   employer_id INTEGER,
+  resume_id INTEGER,
+  cover_letter_id INTEGER,
   FOREIGN KEY (referrer_id) REFERENCES people(people_id),
   FOREIGN KEY (office_type_id) REFERENCES office_type(office_type_id),
-  FOREIGN KEY (employer_id) REFERENCES employer(employer_id)
+  FOREIGN KEY (employer_id) REFERENCES employer(employer_id),
+  FOREIGN KEY (resume_id) REFERENCES resume(resume_id),
+  FOREIGN KEY (cover_letter_id) REFERENCES cover_letter(cover_letter_id)
 );
 
 -- Job status history table
@@ -90,4 +106,18 @@ CREATE TABLE IF NOT EXISTS meta (
   value TEXT
 );
 
+-- Seed meta data
 INSERT OR REPLACE INTO meta (key, value) VALUES ('schema_version', '1');
+
+-- Seed sample status data
+INSERT OR REPLACE INTO status (name, color) VALUES 
+('applied', '0033ff'),
+('interview', '10b123'),
+('viewed', 'cee70d'),
+('rejected', 'ff0000');
+
+-- Seed sample office type data
+INSERT OR REPLACE INTO office_type (name) VALUES 
+('remote'),
+('hybrid'),
+('onsite');

@@ -3,7 +3,7 @@ import { newOfficeTypeSchema } from "../zod-schema/office-type";
 import db from "./db";
 import { CreateOfficeType, OfficeType } from "./db-types";
 
-export const createOfficeType = (officeType: CreateOfficeType) => {
+export const createOfficeType = async (officeType: CreateOfficeType) => {
   try {
     const parsed = newOfficeTypeSchema.parse(officeType);
     const stmt = db.prepare("INSERT INTO office_type (name) VALUES (?)");
@@ -24,7 +24,7 @@ export const createOfficeType = (officeType: CreateOfficeType) => {
   }
 };
 
-export const updateOfficeType = (name: string, officeTypeID: number) => {
+export const updateOfficeType = async (name: string, officeTypeID: number) => {
   try {
     const parsed = newOfficeTypeSchema.parse({ name });
     const stmt = db.prepare("UPDATE office_type SET name = ? WHERE office_type_id = ?");
@@ -45,7 +45,7 @@ export const updateOfficeType = (name: string, officeTypeID: number) => {
   }
 };
 
-export const deleteOfficeType = (officeTypeID: number) => {
+export const deleteOfficeType = async (officeTypeID: number) => {
   const stmt = db.prepare("DELETE FROM office_type WHERE office_type_id = ?");
   const result = stmt.run(officeTypeID);
 
@@ -56,14 +56,14 @@ export const deleteOfficeType = (officeTypeID: number) => {
   return result.changes;
 };
 
-export const getAllOfficeType = () => {
+export const getAllOfficeType = async () => {
   const stmt = db.prepare("SELECT * FROM office_type");
   const result = stmt.all();
 
   return result as OfficeType[];
 };
 
-export const getOfficeTypeById = (officeTypeID: number | bigint) => {
+export const getOfficeTypeById = async (officeTypeID: number | bigint) => {
   const stmt = db.prepare("SELECT * FROM office_type WHERE office_type_id = ?");
   const result = stmt.get(officeTypeID);
 
@@ -74,7 +74,7 @@ export const getOfficeTypeById = (officeTypeID: number | bigint) => {
   return result as OfficeType;
 };
 
-export const getOfficeTypeCount = (search: string) => {
+export const getOfficeTypeCount = async (search: string) => {
   let query = "SELECT COUNT(*) as count FROM office_type";
   let params: any[] = [];
 
@@ -89,7 +89,7 @@ export const getOfficeTypeCount = (search: string) => {
   return result.count;
 };
 
-export const getOfficeTypeList = (search: string, limit: number, offset: number) => {
+export const getOfficeTypeList = async (search: string, limit: number, offset: number) => {
   let query = "SELECT * FROM office_type";
   let params: any[] = [];
 
