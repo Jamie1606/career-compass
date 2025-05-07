@@ -41,6 +41,7 @@ const JobPage = () => {
         employer: item.employer_name,
         office_type: item.office_type_name,
         location: item.location ? item.location : "-",
+        document: <span className="text-slate-600">None</span>,
         status: (
           <Chip size="sm" className="font-semibold capitalize px-2 py-1 select-none" style={{ backgroundColor: "#" + item.status_color, color: getContrastTextColor(item.status_color) }}>
             {item.status_name}

@@ -7,6 +7,7 @@ export type JobData = {
   employer: string;
   office_type: string;
   location: string | undefined;
+  document: React.ReactNode;
   status: React.ReactNode;
   action: React.ReactNode;
 };
@@ -29,8 +30,8 @@ export const columns: Column<JobData>[] = [
     label: "Office Type",
   },
   {
-    key: "location",
-    label: "Location",
+    key: "document",
+    label: "Documents",
   },
   {
     key: "status",

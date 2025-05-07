@@ -22,7 +22,11 @@ export default function DataTable<T extends { key: React.Key }>({ columns, rows,
         )}
       </TableHeader>
       <TableBody emptyContent={!loading && <span className="text-[15px] text-red-500 font-medium">No data</span>} items={rows}>
-        {(item) => <TableRow className="hover:bg-[#1d4ed8]/5" key={item.key}>{(columnKey) => <TableCell className="text-center text-[15px]">{getKeyValue(item, columnKey)}</TableCell>}</TableRow>}
+        {(item) => (
+          <TableRow className="hover:bg-[#1d4ed8]/5" key={item.key}>
+            {(columnKey) => <TableCell className="text-center text-[15px]">{getKeyValue(item, columnKey)}</TableCell>}
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );

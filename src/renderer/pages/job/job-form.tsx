@@ -197,12 +197,12 @@ export default function JobForm({ setRefresh }: JobFormProps) {
       <AddIconButton onOpen={onOpen} hoverTitle="Add New Job Application" />
       <AddModal onClose={onClose} submitForm={submitForm} loading={loading} isOpen={isOpen} onOpenChange={onOpenChange} title="Add New Job Application" setRefresh={setRefresh} resetForm={resetForm}>
         <div className="flex flex-col w-full text-black px-3 pb-2">
-          <label htmlFor="title" className="text-[15px] font-medium">
+          <label htmlFor="title" className="text-[15px] font-semibold">
             Job Title
           </label>
-          <CustomInput aria-label="Job Title" autoFocus disabled={loading} id="title" className="mt-2" maxLength={150} value={title} onChange={(e) => setTitle(e.target.value)} isClearable onClear={() => setTitle("")} />
+          <CustomInput aria-label="Job Title" autoFocus disabled={loading} id="title" className="mt-2" maxLength={150} value={title} onChange={(e) => setTitle(e.target.value)} isClearable onClear={() => setTitle("")} placeholder="Software Engineer" />
 
-          <label htmlFor="employer" className="text-[15px] font-medium mt-5">
+          <label htmlFor="employer" className="text-[15px] font-semibold mt-5">
             Employer
           </label>
           <Autocomplete
@@ -225,16 +225,17 @@ export default function JobForm({ setRefresh }: JobFormProps) {
                 onClose();
               }
             }}
+            placeholder="Google"
           >
             {(employer) => <AutocompleteItem key={employer.employer_id}>{employer.name}</AutocompleteItem>}
           </Autocomplete>
 
-          <label htmlFor="applicationDate" className="text-[15px] font-medium mt-5">
+          <label htmlFor="applicationDate" className="text-[15px] font-semibold mt-5">
             Application Date
           </label>
           <DatePicker isDisabled={loading} id="applicationDate" showMonthAndYearPickers selectorButtonPlacement="start" value={applicationDate} onChange={(value) => setApplicationDate(value)} className="mt-2" maxValue={today(getLocalTimeZone())} aria-label="Application Date" />
 
-          <label htmlFor="applicationStatus" className="text-[15px] font-medium mt-5">
+          <label htmlFor="applicationStatus" className="text-[15px] font-semibold mt-5">
             Application Status
           </label>
           <Select
@@ -256,7 +257,7 @@ export default function JobForm({ setRefresh }: JobFormProps) {
             )}
           </Select>
 
-          <label htmlFor="officeType" className="text-[15px] font-medium mt-5">
+          <label htmlFor="officeType" className="text-[15px] font-semibold mt-5">
             Office Type
           </label>
           <Select
@@ -278,27 +279,27 @@ export default function JobForm({ setRefresh }: JobFormProps) {
             )}
           </Select>
 
-          <label htmlFor="location" className="text-[15px] font-medium mt-5">
+          <label htmlFor="location" className="text-[15px] font-semibold mt-5">
             Location
           </label>
-          <CustomInput aria-label="Location" disabled={loading} id="location" className="mt-2" maxLength={250} value={location} onChange={(e) => setLocation(e.target.value)} isClearable onClear={() => setLocation("")} />
+          <CustomInput aria-label="Location" disabled={loading} id="location" className="mt-2" maxLength={250} value={location} onChange={(e) => setLocation(e.target.value)} isClearable onClear={() => setLocation("")} placeholder="123 Main St, Anytown, USA" />
 
-          <label htmlFor="note" className="text-[15px] font-medium mt-5">
+          <label htmlFor="note" className="text-[15px] font-semibold mt-5">
             Note
           </label>
-          <CustomInput aria-label="Note" disabled={loading} id="note" className="mt-2" maxLength={250} value={note} onChange={(e) => setNote(e.target.value)} isClearable onClear={() => setNote("")} />
+          <CustomInput aria-label="Note" disabled={loading} id="note" className="mt-2" maxLength={250} value={note} onChange={(e) => setNote(e.target.value)} isClearable onClear={() => setNote("")} placeholder="I am interested in this position because..." />
 
-          <label htmlFor="jobDescription" className="text-[15px] font-medium mt-5">
+          <label htmlFor="jobDescription" className="text-[15px] font-semibold mt-5">
             Job Description
           </label>
-          <Textarea aria-label="Job Description" disabled={loading} id="jobDescription" className="mt-2" value={jobDescription} onValueChange={(value) => setJobDescription(value)} minRows={3} maxRows={12} />
+          <Textarea aria-label="Job Description" disabled={loading} id="jobDescription" className="mt-2" value={jobDescription} onValueChange={(value) => setJobDescription(value)} minRows={3} maxRows={12} placeholder="job description..." />
 
-          <label htmlFor="jobLink" className="text-[15px] font-medium mt-5">
+          <label htmlFor="jobLink" className="text-[15px] font-semibold mt-5">
             Link to Job Posting
           </label>
-          <CustomInput aria-label="Job Link" disabled={loading} id="jobLink" className="mt-2" maxLength={250} value={jobLink} onChange={(e) => setJobLink(e.target.value)} isClearable onClear={() => setJobLink("")} />
+          <CustomInput aria-label="Job Link" disabled={loading} id="jobLink" className="mt-2" maxLength={250} value={jobLink} onChange={(e) => setJobLink(e.target.value)} isClearable onClear={() => setJobLink("")} placeholder="https://www.google.com" />
 
-          <label htmlFor="resume" className="text-[15px] font-medium mt-5">
+          <label htmlFor="resume" className="text-[15px] font-semibold mt-5">
             Resume
           </label>
           <CustomInput
@@ -314,7 +315,7 @@ export default function JobForm({ setRefresh }: JobFormProps) {
             accept=".pdf,.doc,.docx"
           />
 
-          <label htmlFor="coverLetter" className="text-[15px] font-medium mt-5">
+          <label htmlFor="coverLetter" className="text-[15px] font-semibold mt-5">
             Cover Letter
           </label>
           <CustomInput

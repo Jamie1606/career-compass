@@ -1,11 +1,12 @@
-✔ update job application status with note @started(25-05-01 15:40) @done(25-05-04 15:41) @lasted(3d1m19s)
 ☐ add resume and cover letter database operations
 ☐ update job application details
 ☐ view job application details (show status history)
+
 ☐ add unit testing for this project
 ☐ create github cicd pipeline
 ☐ add dockerfile and docker compose file
 
 Archive:
+  ✔ update job application status with note @started(25-05-01 15:40) @done(25-05-04 15:41) @lasted(3d1m19s)
   ✔ add sample data seeding @started(25-05-04 14:51) @done(25-05-04 14:51) @lasted(42s)
   ✔ add resume and cover letter tables @started(25-05-04 14:47) @done(25-05-04 14:47) @lasted(14s)
