@@ -2,7 +2,7 @@ import AddIconButton from "@/components/add-icon-button";
 import AddModal from "@/components/add-modal";
 import CustomInput from "@/components/custom-input";
 import { showToast } from "@/util/toast";
-import { Autocomplete, AutocompleteItem, DatePicker, Input, Select, SelectItem, Textarea, useDisclosure } from "@heroui/react";
+import { Autocomplete, AutocompleteItem, DatePicker, Select, SelectItem, Tab, Tabs, Textarea, useDisclosure } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { Employer, OfficeType, Status } from "src/main/database/db-types";
@@ -284,11 +284,6 @@ export default function JobForm({ setRefresh }: JobFormProps) {
           </label>
           <CustomInput aria-label="Location" disabled={loading} id="location" className="mt-2" maxLength={250} value={location} onChange={(e) => setLocation(e.target.value)} isClearable onClear={() => setLocation("")} placeholder="123 Main St, Anytown, USA" />
 
-          <label htmlFor="note" className="text-[15px] font-semibold mt-5">
-            Note
-          </label>
-          <CustomInput aria-label="Note" disabled={loading} id="note" className="mt-2" maxLength={250} value={note} onChange={(e) => setNote(e.target.value)} isClearable onClear={() => setNote("")} placeholder="I am interested in this position because..." />
-
           <label htmlFor="jobDescription" className="text-[15px] font-semibold mt-5">
             Job Description
           </label>
@@ -299,21 +294,34 @@ export default function JobForm({ setRefresh }: JobFormProps) {
           </label>
           <CustomInput aria-label="Job Link" disabled={loading} id="jobLink" className="mt-2" maxLength={250} value={jobLink} onChange={(e) => setJobLink(e.target.value)} isClearable onClear={() => setJobLink("")} placeholder="https://www.google.com" />
 
+          <label htmlFor="note" className="text-[15px] font-semibold mt-5">
+            Note
+          </label>
+          <CustomInput aria-label="Note" disabled={loading} id="note" className="mt-2" maxLength={250} value={note} onChange={(e) => setNote(e.target.value)} isClearable onClear={() => setNote("")} placeholder="any additional information about the application" />
+
           <label htmlFor="resume" className="text-[15px] font-semibold mt-5">
             Resume
           </label>
-          <CustomInput
-            type="file"
-            aria-label="Resume"
-            disabled={loading}
-            id="resume"
-            className="mt-2"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) setResumeFile(file);
-            }}
-            accept=".pdf,.doc,.docx"
-          />
+          <Tabs className="mt-2">
+            <Tab key="existing" title="Select Existing">
+              <Select aria-label="Existing Resume">
+                <SelectItem>Resume 1</SelectItem>
+              </Select>
+            </Tab>
+            <Tab key="new" title="Upload New">
+              <CustomInput
+                type="file"
+                aria-label="Resume"
+                disabled={loading}
+                id="resume"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) setResumeFile(file);
+                }}
+                accept=".pdf,.doc,.docx"
+              />
+            </Tab>
+          </Tabs>
 
           <label htmlFor="coverLetter" className="text-[15px] font-semibold mt-5">
             Cover Letter
