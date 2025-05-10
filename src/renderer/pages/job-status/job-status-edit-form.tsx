@@ -1,9 +1,8 @@
 import CustomInput from "@/components/custom-input";
 import EditIconButton from "@/components/edit-icon-button";
 import EditModal from "@/components/edit-modal";
-import EditIcon from "@/icons/edit-icon";
 import { showToast } from "@/util/toast";
-import { Button, Input, useDisclosure } from "@heroui/react";
+import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
 
 interface JobStatusEditFormProps {
@@ -54,7 +53,7 @@ export default function JobStatusEditForm({ editID, setRefresh }: JobStatusEditF
 
     try {
       setLoading(true);
-      const res = await window.StatusAPI.update(trimmedName, selectedColor, editID);
+      const res = await window.StatusAPI.update({ name: trimmedName, color: selectedColor, statusId: editID });
       setLoading(false);
 
       if (res.success === true) {

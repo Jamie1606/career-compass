@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 import db from "../config/db";
-import { StatusInsert, StatusUpdate, ZodStatusDelete, ZodStatusInsert, ZodStatusUpdate } from "src/zod-validation/status";
+import { StatusInsert, StatusUpdate, ZodStatusDelete, ZodStatusInsert, ZodStatusUpdate } from "../../../zod-validation/status";
 import { Status } from "../types";
 
 export const createStatus = async (newStatus: StatusInsert) => {
@@ -67,14 +67,14 @@ export const deleteStatus = async (statusId: number) => {
 };
 
 export const getAllStatus = async () => {
-  const stmt = db.prepare("SELECT * FROM status");
+  const stmt = db.prepare("SELECT status_id AS statusId, name, color, created_at AS createdAt FROM status");
   const result = stmt.all();
 
   return result as Status[];
 };
 
 export const getStatusById = async (statusId: number | bigint) => {
-  const stmt = db.prepare("SELECT * FROM status WHERE status_id = ?");
+  const stmt = db.prepare("SELECT status_id AS statusId, name, color, created_at AS createdAt FROM status WHERE status_id = ?");
   const result = stmt.get(statusId);
 
   return result as Status;
@@ -96,7 +96,7 @@ export const getStatusCount = async (search: string) => {
 };
 
 export const getStatusList = async (search: string, limit: number, offset: number) => {
-  let query = "SELECT * FROM status";
+  let query = "SELECT status_id AS statusId, name, color, created_at AS createdAt FROM status";
   let params: any[] = [];
 
   if (search) {

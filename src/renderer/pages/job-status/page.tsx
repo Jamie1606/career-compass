@@ -1,11 +1,11 @@
 import { Chip, Input } from "@heroui/react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { getContrastTextColor } from "@/util/color";
-import { Status } from "src/main/database/db-types";
 import { showToast } from "@/util/toast";
 import DataTable from "@/components/data-table";
 import { columns, StatusData } from "./columns";
 import CustomPagination from "@/components/custom-pagination";
+import { Status } from "src/main/database";
 
 const JobStatusForm = lazy(() => import("./job-status-form"));
 const JobStatusEditForm = lazy(() => import("./job-status-edit-form"));
@@ -46,7 +46,7 @@ const JobStatusPage = () => {
         action: (
           <div className="flex items-center gap-x-2 justify-center">
             <Suspense fallback="">
-              <JobStatusEditForm setRefresh={setRefresh} editID={item.status_id} />
+              <JobStatusEditForm setRefresh={setRefresh} editID={item.statusId} />
               <DeleteModal
                 title="Delete Job Status"
                 hoverTitle="Delete Job Status"
@@ -55,7 +55,7 @@ const JobStatusPage = () => {
                     Are you sure you want to delete this job status <span className="font-semibold">"{item.name}"</span>?
                   </span>
                 }
-                onSubmit={() => deleteStatus(item.status_id)}
+                onSubmit={() => deleteStatus(item.statusId)}
                 setRefresh={setRefresh}
               />
             </Suspense>
