@@ -1,6 +1,11 @@
-☐ add resume and cover letter database operations
+☐ rearrange project structure @started(25-05-10 17:28)
+☐ separate db types into different files @started(25-05-10 17:30)
+
+☐ add resume and cover letter database operations @started(25-05-10 16:03)
 ☐ update job application details
 ☐ view job application details (show status history)
+☐ configure auto update electron js application
+☐ make dashboard ui "coming soon" page
 
 ☐ add unit testing for this project
 ☐ create github cicd pipeline

@@ -1,12 +1,12 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { CreateStatus } from "../../main/database/db-types";
+import { StatusInsert, StatusUpdate } from "src/zod-validation/status";
 
 contextBridge.exposeInMainWorld("StatusAPI", {
-  create: (newStatus: CreateStatus) => ipcRenderer.invoke("status:create", newStatus),
-  update: (name: string, color: string, statusID: number) => ipcRenderer.invoke("status:update", name, color, statusID),
-  delete: (statusID: number) => ipcRenderer.invoke("status:delete", statusID),
+  create: (newStatus: StatusInsert) => ipcRenderer.invoke("status:create", newStatus),
+  update: (statusUpdate: StatusUpdate) => ipcRenderer.invoke("status:update", statusUpdate),
+  delete: (statusId: number) => ipcRenderer.invoke("status:delete", statusId),
   getList: (search: string, limit: number, offset: number) => ipcRenderer.invoke("status:getList", search, limit, offset),
-  getById: (statusID: number) => ipcRenderer.invoke("status:getById", statusID),
+  getById: (statusId: number) => ipcRenderer.invoke("status:getById", statusId),
   getCount: (search: string) => ipcRenderer.invoke("status:getCount", search),
   getAll: () => ipcRenderer.invoke("status:getAll"),
 });

@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { createStatus, deleteStatus, getAllStatus, getStatusById, getStatusCount, getStatusList, updateStatus } from "../database/status";
+import { createStatus, deleteStatus, getAllStatus, getStatusById, getStatusCount, getStatusList, updateStatus } from "../database/models/status";
 import { handleIPC } from "../utils/ipc-handler";
 
 ipcMain.handle("status:create", handleIPC(createStatus));

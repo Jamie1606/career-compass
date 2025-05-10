@@ -1,4 +1,6 @@
-import { CreateJobStatusHistory, CreateOfficeType, CreateStatus, Employer, JobDetail, JobList, OfficeType, Status } from "src/main/database/db-types";
+import { Status } from "src/main/database";
+import { CreateJobStatusHistory, CreateOfficeType, CreateStatus, Employer, JobDetail, JobList, OfficeType } from "src/main/database/db-types";
+import { StatusInsert, StatusUpdate } from "src/zod-validation/status";
 
 export type APISuccess<T> = {
   success: true;
@@ -13,11 +15,11 @@ export type APIError = {
 export type APIResponse<T> = APISuccess<T> | APIError;
 
 export interface IStatusAPI {
-  create: (newStatus: CreateStatus) => Promise<APIResponse<number | bigint>>;
-  update: (name: string, color: string, statusID: number | bigint) => Promise<APIResponse<number>>;
-  delete: (statusID: number | bigint) => Promise<APIResponse<number>>;
+  create: (newStatus: StatusInsert) => Promise<APIResponse<number | bigint>>;
+  update: (statusUpdate: StatusUpdate) => Promise<APIResponse<number>>;
+  delete: (statusId: number | bigint) => Promise<APIResponse<number>>;
   getList: (search: string, limit: number, offset: number) => Promise<APIResponse<Status[]>>;
-  getById: (statusID: number | bigint) => Promise<APIResponse<Status>>;
+  getById: (statusId: number | bigint) => Promise<APIResponse<Status>>;
   getCount: (search: string) => Promise<APIResponse<number>>;
   getAll: () => Promise<APIResponse<Status[]>>;
 }

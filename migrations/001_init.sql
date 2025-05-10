@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS people (
 -- Resume table
 CREATE TABLE IF NOT EXISTS resume (
   resume_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
   resume BLOB,
   created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS resume (
 -- Cover letter table
 CREATE TABLE IF NOT EXISTS cover_letter (
   cover_letter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
   cover_letter BLOB,
   created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
