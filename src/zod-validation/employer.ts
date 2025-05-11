@@ -8,13 +8,11 @@ const baseEmployerSchema = z.object({
 });
 
 // --- Schema for inserting a new employer
-export const ZodEmployerInsert = baseEmployerSchema.omit({ createdAt: true }).extend({
-  employerId: z.union([z.number(), z.bigint()]).optional(), // Optional for insert
-});
+export const ZodEmployerInsert = baseEmployerSchema.omit({ createdAt: true, employerId: true });
 export type EmployerInsert = z.infer<typeof ZodEmployerInsert>;
 
 // --- Schema for updating an employer
-export const ZodEmployerUpdate = baseEmployerSchema.partial().extend({
+export const ZodEmployerUpdate = baseEmployerSchema.omit({ createdAt: true }).extend({
   employerId: z.union([z.number(), z.bigint()]),
 });
 export type EmployerUpdate = z.infer<typeof ZodEmployerUpdate>;

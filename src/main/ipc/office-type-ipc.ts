@@ -1,6 +1,6 @@
 import { ipcMain } from "electron";
 import { handleIPC } from "../utils/ipc-handler";
-import { createOfficeType, deleteOfficeType, getAllOfficeType, getOfficeTypeById, getOfficeTypeCount, getOfficeTypeList, updateOfficeType } from "../database/office-type";
+import { createOfficeType, deleteOfficeType, getAllOfficeType, getOfficeTypeById, getOfficeTypeCount, getOfficeTypeList, updateOfficeType } from "../database/models/office-type";
 
 ipcMain.handle("officeType:create", handleIPC(createOfficeType));
 ipcMain.handle("officeType:update", handleIPC(updateOfficeType));

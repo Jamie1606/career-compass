@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { StatusInsert, StatusUpdate } from "src/zod-validation/status";
+import { StatusInsert, StatusUpdate } from "src/zod-validation";
 
 contextBridge.exposeInMainWorld("StatusAPI", {
   create: (newStatus: StatusInsert) => ipcRenderer.invoke("status:create", newStatus),

@@ -1,6 +1,6 @@
-import { Status } from "src/main/database";
-import { CreateJobStatusHistory, CreateOfficeType, CreateStatus, Employer, JobDetail, JobList, OfficeType } from "src/main/database/db-types";
-import { StatusInsert, StatusUpdate } from "src/zod-validation/status";
+import { OfficeType, Status } from "src/main/database";
+import { CreateJobStatusHistory, Employer, JobDetail, JobList } from "src/main/database/db-types";
+import { OfficeTypeInsert, OfficeTypeUpdate, StatusInsert, StatusUpdate } from "src/zod-validation";
 
 export type APISuccess<T> = {
   success: true;
@@ -25,11 +25,11 @@ export interface IStatusAPI {
 }
 
 export interface IOfficeTypeAPI {
-  create: (newOfficeType: CreateOfficeType) => Promise<APIResponse<number | bigint>>;
-  update: (name: string, officeTypeID: number | bigint) => Promise<APIResponse<number>>;
-  delete: (officeTypeID: number | bigint) => Promise<APIResponse<number>>;
+  create: (newOfficeType: OfficeTypeInsert) => Promise<APIResponse<number | bigint>>;
+  update: (officeTypeUpdate: OfficeTypeUpdate) => Promise<APIResponse<number>>;
+  delete: (officeTypeId: number | bigint) => Promise<APIResponse<number>>;
   getList: (search: string, limit: number, offset: number) => Promise<APIResponse<OfficeType[]>>;
-  getById: (officeTypeID: number | bigint) => Promise<APIResponse<OfficeType>>;
+  getById: (officeTypeId: number | bigint) => Promise<APIResponse<OfficeType>>;
   getCount: (search: string) => Promise<APIResponse<number>>;
   getAll: () => Promise<APIResponse<OfficeType[]>>;
 }

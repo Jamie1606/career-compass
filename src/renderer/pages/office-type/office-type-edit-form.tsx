@@ -1,9 +1,8 @@
 import CustomInput from "@/components/custom-input";
 import EditIconButton from "@/components/edit-icon-button";
 import EditModal from "@/components/edit-modal";
-import EditIcon from "@/icons/edit-icon";
 import { showToast } from "@/util/toast";
-import { Button, Input, useDisclosure } from "@heroui/react";
+import { useDisclosure } from "@heroui/react";
 import { useState } from "react";
 
 interface OfficeTypeEditFormProps {
@@ -50,7 +49,7 @@ export default function OfficeTypeEditForm({ editID, setRefresh }: OfficeTypeEdi
 
     try {
       setLoading(true);
-      const res = await window.OfficeTypeAPI.update(trimmedName, editID);
+      const res = await window.OfficeTypeAPI.update({ officeTypeId: editID, name: trimmedName });
       setLoading(false);
 
       if (res.success === true) {

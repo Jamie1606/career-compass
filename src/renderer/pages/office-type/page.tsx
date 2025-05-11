@@ -1,10 +1,10 @@
 import { Input } from "@heroui/react";
 import { lazy, Suspense, useEffect, useState } from "react";
-import { OfficeType } from "src/main/database/db-types";
 import { showToast } from "@/util/toast";
 import { columns, OfficeTypeData } from "./columns";
 import DataTable from "@/components/data-table";
 import CustomPagination from "@/components/custom-pagination";
+import { OfficeType } from "src/main/database";
 
 const OfficeTypeForm = lazy(() => import("./office-type-form"));
 const OfficeTypeEditForm = lazy(() => import("./office-type-edit-form"));
@@ -40,7 +40,7 @@ const OfficeTypePage = () => {
         action: (
           <div className="flex items-center gap-x-2 justify-center">
             <Suspense fallback="">
-              <OfficeTypeEditForm setRefresh={setRefresh} editID={item.office_type_id} />
+              <OfficeTypeEditForm setRefresh={setRefresh} editID={item.officeTypeId} />
               <DeleteModal
                 title="Delete Office Type"
                 hoverTitle="Delete Office Type"
@@ -49,7 +49,7 @@ const OfficeTypePage = () => {
                     Are you sure you want to delete this office type <span className="font-semibold">"{item.name}"</span>?
                   </span>
                 }
-                onSubmit={() => deleteOfficeType(item.office_type_id)}
+                onSubmit={() => deleteOfficeType(item.officeTypeId)}
                 setRefresh={setRefresh}
               />
             </Suspense>

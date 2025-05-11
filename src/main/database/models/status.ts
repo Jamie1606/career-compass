@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 import db from "../config/db";
-import { StatusInsert, StatusUpdate, ZodStatusDelete, ZodStatusInsert, ZodStatusUpdate } from "../../../zod-validation/status";
+import { StatusInsert, StatusUpdate, ZodStatusDelete, ZodStatusInsert, ZodStatusUpdate } from "../../../zod-validation";
 import { Status } from "../types";
 
 export const createStatus = async (newStatus: StatusInsert) => {
@@ -45,7 +45,7 @@ export const updateStatus = async (statusUpdate: StatusUpdate) => {
   }
 };
 
-export const deleteStatus = async (statusId: number) => {
+export const deleteStatus = async (statusId: number | bigint) => {
   try {
     const parsed = ZodStatusDelete.parse({ statusId });
     const stmt = db.prepare("DELETE FROM status WHERE status_id = ?");
