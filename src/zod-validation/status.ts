@@ -5,7 +5,7 @@ const baseStatusSchema = z.object({
   statusId: z.union([z.number(), z.bigint()]),
   name: z.string().trim().min(3, "Status name must be at least 3 characters.").max(100, "Status name must be less than 100 characters."),
   color: z.string().regex(/^([0-9a-fA-F]{6})$/, "Color must be a valid 6-digit hex code"),
-  createdAt: z.string().optional(), // Optional because it's often auto-generated
+  createdAt: z.string(),
 });
 
 // --- Schema for inserting a new status

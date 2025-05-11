@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 import db from "../config/db";
-import { OfficeTypeInsert, OfficeTypeUpdate, ZodOfficeTypeInsert, ZodOfficeTypeUpdate } from "../../../zod-validation";
+import { OfficeTypeInsert, OfficeTypeUpdate, ZodOfficeTypeDelete, ZodOfficeTypeInsert, ZodOfficeTypeUpdate } from "../../../zod-validation";
 import { OfficeType } from "../types";
 
 export const createOfficeType = async (newOfficeType: OfficeTypeInsert) => {
@@ -15,12 +15,7 @@ export const createOfficeType = async (newOfficeType: OfficeTypeInsert) => {
 
     return result.lastInsertRowid;
   } catch (error) {
-    if (error instanceof ZodError) {
-      const firstError = error.errors[0]?.message;
-      throw new Error(firstError || "Invalid input.");
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -36,24 +31,24 @@ export const updateOfficeType = async (officeTypeUpdate: OfficeTypeUpdate) => {
 
     return result.changes;
   } catch (error) {
-    if (error instanceof ZodError) {
-      const firstError = error.errors[0]?.message;
-      throw new Error(firstError || "Invalid input.");
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
 export const deleteOfficeType = async (officeTypeId: number) => {
-  const stmt = db.prepare("DELETE FROM office_type WHERE office_type_id = ?");
-  const result = stmt.run(officeTypeId);
+  try {
+    const parsed = ZodOfficeTypeDelete.parse({ officeTypeId });
+    const stmt = db.prepare("DELETE FROM office_type WHERE office_type_id = ?");
+    const result = stmt.run(parsed.officeTypeId);
 
-  if (!result.changes) {
-    throw new Error("Failed to delete office type");
+    if (!result.changes) {
+      throw new Error("Failed to delete office type");
+    }
+
+    return result.changes;
+  } catch (error) {
+    throw error;
   }
-
-  return result.changes;
 };
 
 export const getAllOfficeType = async () => {

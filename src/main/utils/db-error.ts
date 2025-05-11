@@ -1,7 +1,7 @@
 export function parseSQLiteError(error: unknown): string {
   if (!(error instanceof Error)) return "Unexpected error occurred.";
 
-  const code = (error as any).code;
+  const code = (error as { code?: string })?.code;
 
   if (code === "SQLITE_CONSTRAINT_UNIQUE") {
     return "A record with this value already exists.";

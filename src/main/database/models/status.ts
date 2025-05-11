@@ -15,12 +15,7 @@ export const createStatus = async (newStatus: StatusInsert) => {
 
     return result.lastInsertRowid;
   } catch (error) {
-    if (error instanceof ZodError) {
-      const firstError = error.errors[0]?.message;
-      throw new Error(firstError || "Invalid input.");
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -36,12 +31,7 @@ export const updateStatus = async (statusUpdate: StatusUpdate) => {
 
     return result.changes;
   } catch (error) {
-    if (error instanceof ZodError) {
-      const firstError = error.errors[0]?.message;
-      throw new Error(firstError || "Invalid input.");
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 
@@ -57,12 +47,7 @@ export const deleteStatus = async (statusId: number | bigint) => {
 
     return result.changes;
   } catch (error) {
-    if (error instanceof ZodError) {
-      const firstError = error.errors[0]?.message;
-      throw new Error(firstError || "Invalid input.");
-    } else {
-      throw error;
-    }
+    throw error;
   }
 };
 

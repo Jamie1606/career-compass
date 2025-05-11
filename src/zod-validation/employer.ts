@@ -4,7 +4,7 @@ import { z } from "zod";
 const baseEmployerSchema = z.object({
   employerId: z.union([z.number(), z.bigint()]),
   name: z.string().trim().min(3, "Employer name must be at least 3 characters.").max(150, "Employer name must be less than 150 characters."),
-  createdAt: z.string().optional(), // Optional because it's often auto-generated
+  createdAt: z.string(),
 });
 
 // --- Schema for inserting a new employer
